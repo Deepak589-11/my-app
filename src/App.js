@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import ProtectedRoute from "./components/ProtectedRoute";
+
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ReferralDetails from "./pages/ReferralDetails";
@@ -10,16 +12,33 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
-        <Route path="/" element={<Dashboard />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="/referral/:id"
-          element={<ReferralDetails />}
+          element={
+            <ProtectedRoute>
+              <ReferralDetails />
+            </ProtectedRoute>
+          }
         />
 
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="*"
+          element={<NotFound />}
+        />
 
       </Routes>
     </BrowserRouter>
